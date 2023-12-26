@@ -1,4 +1,4 @@
-asgiref==3.5.2
+reasgiref==3.5.2
 Django==4.0.5
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.2.0

@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 export const register = createAsyncThunk(
 	'users/register',
@@ -33,7 +35,7 @@ export const register = createAsyncThunk(
 	}
 );
 
-const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
+export const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
 	try {
 		const res = await fetch('/api/users/me', {
 			method: 'GET',
@@ -117,9 +119,34 @@ export const checkAuth = createAsyncThunk(
 	}
 );
 
+export const updateProfilePhoto = createAsyncThunk(
+    'users/updateProfilePhoto',
+    async (file, thunkAPI) => {
+        try {
+            const formData = new FormData();
+            formData.append('profile_photo', file);		
+
+            const res = await axios.post('http://127.0.0.1:8000/api/users/update_profile_photo/',  formData)
+
+            const data = await res.json();
+
+            if (res.status === 200) {
+                return data;
+            } else {
+                return thunkAPI.rejectWithValue(data);
+            }
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.response.data);
+        }
+    }
+);
+
+
+
 export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
 	try {
-		const res = await fetch('/api/users/logout', {
+		console.log('reqst for logout')
+		const res = await fetch('/api/users/logout', {			
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
@@ -129,14 +156,18 @@ export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
 		const data = await res.json();
 
 		if (res.status === 200) {
-			return data;
+			
+			
+			return {success:true,data};
 		} else {
 			return thunkAPI.rejectWithValue(data);
+			console.log('reqst for reject logout-data')
 		}
 	} catch (err) {
 		return thunkAPI.rejectWithValue(err.response.data);
 	}
 });
+
 
 const initialState = {
 	isAuthenticated: false,
@@ -205,7 +236,24 @@ const userSlice = createSlice({
 			})
 			.addCase(logout.rejected, state => {
 				state.loading = false;
-			});
+			})
+			.addCase(updateProfilePhoto.pending, state => {
+            state.loading = true;
+		    })
+			.addCase(updateProfilePhoto.fulfilled, (state, action) => {
+            state.loading = false;
+            })
+			.addCase(updateProfilePhoto.rejected, (state, action) => {
+    		state.loading = false;
+    		if (action.payload) {
+        	console.error('Error uploading photo:', action.payload.error);
+        	// Handle errors
+    		} else {
+        	console.error('Error uploading photo: Payload is undefined');
+   			 }
+})
+;		
+
 	},
 });
 

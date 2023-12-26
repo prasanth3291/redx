@@ -4,12 +4,14 @@ import { logout } from 'features/user';
 
 const Navbar = () => {
 	const dispatch = useDispatch();
-	const { isAuthenticated } = useSelector(state => state.user);
+	const {isAuthenticated,user } = useSelector(
+		state => state.user
+	);
 
 	const authLinks = (
 		<>
 			<li className='nav-item'>
-				<NavLink className='nav-link' to='/dashboard'>
+				<NavLink className='nav-link' to={user && user.is_staff ?'/ad-dashboard':'/dashboard'} >
 					Dashboard
 				</NavLink>
 			</li>
@@ -40,7 +42,7 @@ const Navbar = () => {
 		<nav className='navbar navbar-expand-lg bg-light'>
 			<div className='container-fluid'>
 				<Link className='navbar-brand' to='/'>
-					Auth Site
+					Sample
 				</Link>
 				<button
 					className='navbar-toggler'

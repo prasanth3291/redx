@@ -6,7 +6,7 @@ import Layout from 'components/Layout';
 
 const LoginPage = () => {
 	const dispatch = useDispatch();
-	const { loading, isAuthenticated, registered } = useSelector(
+	const { loading, isAuthenticated, registered,user } = useSelector(
 		state => state.user
 	);
 
@@ -31,7 +31,17 @@ const LoginPage = () => {
 		dispatch(login({ email, password }));
 	};
 
-	if (isAuthenticated) return <Navigate to='/dashboard' />;
+	if (user && isAuthenticated){
+		console.log('user-',user.is_active)
+		if (user  && user.is_staff){
+			console.log('admin')
+		return <Navigate to='/ad-dashboard' />;}
+		else{
+			console.log('user')
+			return <Navigate to='/dashboard' />;
+			
+		}
+	} 
 
 	return (
 		<Layout title='Auth Site | Login' content='Login page'>

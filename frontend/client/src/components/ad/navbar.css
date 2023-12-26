@@ -1,0 +1,22 @@
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.navb{
+    background-color: rgb(90, 25, 210);
+    width: 75%;
+    position: absolute;
+    left: 25%;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    
+}
+.home{
+    padding: 10px;
+    font-weight: 800px;
+    color: aliceblue;
+}
+.search{
+    padding: 10px;
+    font-weight: 800px;
+}

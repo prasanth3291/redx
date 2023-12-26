@@ -1,0 +1,64 @@
+.dashboard{
+    width: 100vw;
+    height: 100vh;
+}
+.body{
+    margin: 0;
+    padding: 0;
+}
+.sidebar{
+    height: 100%;
+    width: 25%;
+    background-color: rgb(85, 88, 88);
+}
+.sidebarUL{
+width: 100%;
+height: 100%;
+padding: 0;
+}
+.sidebarUL .sidebarList{
+width: 100%;
+height: 50px;
+border: 1px solid rgb(10, 10, 10);
+list-style-type: none;
+margin: 0;
+color: white;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.sidebarUL .sidebarList:hover{
+cursor: pointer;
+background-color: rgb(76, 70, 62);
+}
+.sidebarList #icon{
+width: 30%;
+display: grid;
+place-items: center;
+}
+.sidebarList #title{
+width:70%;
+}
+.profile-pic {
+    width: 124px;
+    height: 150px;
+    margin-left: 61px;
+    padding: 10px;
+}
+.side-content{
+    display: flex;
+    height: 100%;
+
+}
+.content{
+    height: auto;
+    width: 75%;
+    position: relative;
+    top: 90px;
+    left: 30px;
+    margin: 10px;
+    
+}

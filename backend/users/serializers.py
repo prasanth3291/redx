@@ -6,9 +6,10 @@ User = get_user_model()
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
+  profile_photo = serializers.ImageField(source='profile.profile_photo', read_only=True)
   class Meta:
     model = User
-    fields = ('first_name', 'last_name', 'email', 'password')
+    fields = ('first_name', 'last_name', 'email', 'password','profile_photo')
 
   def validate(self, data):
     user = User(**data)
@@ -39,4 +40,4 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = ('first_name', 'last_name', 'email',)
+    fields = ('first_name', 'last_name', 'email','is_staff','profile_photo')
